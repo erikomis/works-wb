@@ -46,7 +46,6 @@ How to start your project
 
 ```bash
 cd works-web
-docker-compose  up -d 
 npm i
 npm run dev
 ```
