@@ -15,7 +15,11 @@ import { LucideFilePenLine } from "../../components/icons/FilePenLine";
 
 type ProductTable = Product & { actions: string };
 
-export const useTableProduct = () => {
+type TableProductProps = {
+  openModal: (id: number) => void;
+};
+
+export const useTableProduct = ({ openModal }: TableProductProps) => {
   const columnHelper = createColumnHelper<ProductTable>();
   const service = new ProductService();
 
@@ -49,12 +53,16 @@ export const useTableProduct = () => {
       header: "created_at",
     }),
     columnHelper.accessor("actions", {
-      cell: () => (
+      cell: (info) => (
         <div className="flex items-center space-x-3.5">
           <Button type="button" color="ghost">
             <LucideFilePenLine />
           </Button>
-          <Button color="ghost" type="button">
+          <Button
+            color="ghost"
+            type="button"
+            onClick={() => openModal(info.row.original.id)}
+          >
             <LucideTrash2 />
           </Button>
         </div>

@@ -37,4 +37,16 @@ export class ProductService {
       throw new Error(`${message}`);
     }
   }
+
+  async deleteProduct(productId: number): Promise<boolean> {
+    try {
+      await api.delete("/product" + `/${productId}`);
+      return true;
+    } catch (er) {
+      const error = er as AxiosError<{ message: string }>;
+      const message =
+        (error.response?.data?.message as string) || error.message;
+      throw new Error(`${message}`);
+    }
+  }
 }

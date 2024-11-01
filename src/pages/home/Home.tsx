@@ -3,11 +3,18 @@ import { Button } from "../../components/ui/Button";
 import { useTableProduct } from "./useTableProdudct";
 import { flexRender } from "@tanstack/react-table";
 import DebouncedInput from "../../components/form/DebouncedInput";
+import { ModalDelete } from "../../components/ui/modal/ModalDelete";
+import { useModalDeleteProduct } from "../../hooks/useModalDeleteProduct";
 
 export const Home = () => {
   const navigate = useNavigate();
 
-  const { table, globalFilter, setGlobalFilter } = useTableProduct();
+  const { closeModal, deleteProduct, isOpen, openModal, error } =
+    useModalDeleteProduct();
+
+  const { table, globalFilter, setGlobalFilter } = useTableProduct({
+    openModal,
+  });
 
   const handleCreateProduct = () => {
     navigate("/create-product");
@@ -102,8 +109,8 @@ export const Home = () => {
               type="number"
               defaultValue={table.getState().pagination.pageIndex + 1}
               onChange={(e) => {
-                const page = e.target.value ? Number(e.target.value) - 1 : 0
-                table.setPageIndex(page)
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                table.setPageIndex(page);
               }}
               className="w-16 px-2 py-1 bg-white border border-gray-300 rounded-md dark:border-gray-700 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -111,7 +118,7 @@ export const Home = () => {
           <select
             value={table.getState().pagination.pageSize}
             onChange={(e) => {
-              table.setPageSize(Number(e.target.value))
+              table.setPageSize(Number(e.target.value));
             }}
             className="px-2 py-1 bg-white border border-gray-300 rounded-md dark:border-gray-700 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
@@ -123,6 +130,14 @@ export const Home = () => {
           </select>
         </div>
       </main>
+      {isOpen && (
+        <ModalDelete
+          isOpen={isOpen}
+          onClose={closeModal}
+          onDelete={() => deleteProduct()}
+          error={error}
+        />
+      )}
     </div>
   );
 };
