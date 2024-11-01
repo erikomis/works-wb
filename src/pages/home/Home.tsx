@@ -5,10 +5,23 @@ import { flexRender } from "@tanstack/react-table";
 import DebouncedInput from "../../components/form/DebouncedInput";
 import { ModalDelete } from "../../components/ui/modal/ModalDelete";
 import { useModalDeleteProduct } from "../../hooks/useModalDeleteProduct";
+import { useModalUpdateProduct } from "../../hooks/useModalUpdateProduct";
+import { ModalUpdate } from "../../components/ui/modal/ModalUpdate";
 
 export const Home = () => {
   const navigate = useNavigate();
 
+  const {
+    errors,
+    handleSubmit,
+    onSubmit,
+    register,
+    open,
+    handleClose,
+    handleOpenUpdate,
+    errorUpdate,
+  } = useModalUpdateProduct();
+  
   const { closeModal, deleteProduct, isOpen, openModal, error } =
     useModalDeleteProduct();
 
@@ -130,6 +143,19 @@ export const Home = () => {
           </select>
         </div>
       </main>
+      {open && (
+        <ModalUpdate
+          open={open}
+          errorUpdate={errorUpdate}
+          handleClose={handleClose}
+          handleSubmit={handleSubmit}
+          handleOpenUpdate={handleOpenUpdate}
+          onSubmit={onSubmit}
+          register={register}
+          errors={errors}
+        />
+      )}
+
       {isOpen && (
         <ModalDelete
           isOpen={isOpen}
