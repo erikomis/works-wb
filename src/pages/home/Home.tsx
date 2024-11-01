@@ -7,6 +7,7 @@ import { ModalDelete } from "../../components/ui/modal/ModalDelete";
 import { useModalDeleteProduct } from "../../hooks/useModalDeleteProduct";
 import { useModalUpdateProduct } from "../../hooks/useModalUpdateProduct";
 import { ModalUpdate } from "../../components/ui/modal/ModalUpdate";
+import { Header } from "../../components/ui/header/Header";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export const Home = () => {
     handleOpenUpdate,
     errorUpdate,
   } = useModalUpdateProduct();
-  
+
   const { closeModal, deleteProduct, isOpen, openModal, error } =
     useModalDeleteProduct();
 
@@ -35,6 +36,7 @@ export const Home = () => {
 
   return (
     <div className="min-h-screen text-gray-900 bg-white dark:bg-gray-900 dark:text-gray-100">
+      <Header />
       <main className="container px-4 py-8 mx-auto">
         <div className="flex flex-col justify-between gap-4 mb-6 sm:flex-row">
           <DebouncedInput

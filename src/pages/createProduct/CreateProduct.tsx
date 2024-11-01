@@ -2,6 +2,7 @@ import { useCreateProduct } from "./useCreateProduct";
 import { Input } from "../../components/form/input";
 import { handleNcmFormat } from "../../utils/format";
 import { Button } from "../../components/ui/Button";
+import { Header } from "../../components/ui/header/Header";
 
 export const CreateProduct = () => {
   const {
@@ -15,6 +16,7 @@ export const CreateProduct = () => {
 
   return (
     <div className="flex flex-col h-screen min-h-screen ">
+      <Header />
       <div className="flex items-center justify-center min-h-0 bg-gray dark:dark:bg-boxdark-2 grow">
         <form
           className="w-full max-w-md p-8 space-y-6 rounded-lg shadow-md bg-gray-50 dark:bg-gray-800"
